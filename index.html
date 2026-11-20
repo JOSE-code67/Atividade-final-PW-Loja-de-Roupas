@@ -1,54 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página inicial Clothes X</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página inicial Clothes X</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="verao">
 
-    <div id="camisas">
+  <header>
+    <div class="logo">Clothes X</div>
+    <button class="menu-toggle" id="btn-menu" aria-label="Abrir Menu">☰</button>
+    <nav id="menu-navegacao">
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#produtos">Temporadas</a></li>
+        <li><a href="#produtos">Masculino</a></li>
+        <li><a href="#produtos">Feminino</a></li>
+        <li><a href="#produtos">Bermudas</a></li>
+        <li><a href="#produtos">Calçados</a></li>
+        <li><a href="#produtos">Saias</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    </div>
-    <div id="calsas">
+  <main id="inicio">
+    <section class="carrossel" aria-label="Destaques da Loja">
+      <div class="slides-container" id="slides-container">
+        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://unsplash.com');">
+          <h1>Veja Modelos de roupas em promoção.</h1>
+          <p>Com até 30% de promoção, economize dinheiro e participe da moda!</p>
+          <a href="#produtos" class="btn-destaque">Ver Coleção</a>
+        </div>
 
-    </div>
-    <div id="vestidos">
+        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://unsplash.com');">
+          <h1>Modelos da Temporada</h1>
+          <p>Acompanhe os modelos mais recentes e belos na época do verão e inverno.</p>
+          <a href="#produtos" class="btn-destaque">Acompanhar Agora</a>
+        </div>
 
-    </div>
-    <div id="bermuda">
+        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://unsplash.com');">
+          <h1>Principais Buscas</h1>
+          <p>Acompanhe os modelos de roupas mais acessados.</p>
+          <a href="#produtos" class="btn-destaque">Visualizar Agora</a>
+        </div>
+      </div>
 
-    </div>
-    <div id="sapatos">
+      <button class="seta seta-esquerda" id="btn-anterior" aria-label="Slide anterior">❮</button>
+      <button class="seta seta-direita" id="btn-proximo" aria-label="Próximo slide">❯</button>
 
-    </div>
-    <div id="saias">
+      <div class="indicadores" id="indicadores">
+        <button class="bolinha ativa" data-index="0" aria-label="Ir para slide 1"></button>
+        <button class="bolinha" data-index="1" aria-label="Ir para slide 2"></button>
+        <button class="bolinha" data-index="2" aria-label="Ir para slide 3"></button>
+      </div>
+    </section>
 
-    </div>
-    </div>
-     <div id="inverno">
+    <section class="vitrine" id="produtos">
+      <h2>Destaques da Semana</h2>
+      
+      <div class="grade-produtos">
+        <div class="card-produto">
+          <img src="https://unsplash.com" alt="Camiseta Básica Branca">
+          <h3>Camiseta Básica Premium</h3>
+          <p class="preco">R$ 79,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
 
-    <div id="camisas">
+        <div class="card-produto">
+          <img src="https://unsplash.com" alt="Calça Jeans">
+          <h3>Calça Jeans Slim</h3>
+          <p class="preco">R$ 159,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    </div>
-    <div id="calsas">
+  <footer id="contato">
+    <div class="footer-conteudo">
+      <div class="footer-coluna">
+        <h4>Sobre a Loja</h4>
+        <p>Moda moderna com entrega para todo o Brasil. Qualidade garantida em cada peça.</p>
+      </div>
 
-    </div>
-    <div id="vestidos">
+      <div class="footer-coluna">
+        <h4>Links Rápidos</h4>
+        <a href="#inicio">Início</a>
+        <a href="#produtos">Catálogo</a>
+        <a href="#">Política de Trocas</a>
+      </div>
 
+      <div class="footer-coluna">
+        <h4>Atendimento</h4>
+        <p>WhatsApp: (11) 99999-9999</p>
+        <p>E-mail: contato@clothesx.com.br</p>
+        <p>Seg a Sex: 09h às 18h</p>
+      </div>
     </div>
-    <div id="bermuda">
 
+    <div class="footer-direitos">
+      &copy; 2026 Clothes X. Todos os direitos reservados.
     </div>
-    <div id="sapatos">
+  </footer>
 
-    </div>
-    <div id="saias">
-
-    </div>
-    </div>
+  
 </body>
-<script src="scrip.js"></script>
+<script src="script.js"></script>
 </html>
