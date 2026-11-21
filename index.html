@@ -11,35 +11,36 @@
   <header>
     <div class="logo">Clothes X</div>
     <button class="menu-toggle" id="btn-menu" aria-label="Abrir Menu">☰</button>
-    <nav id="menu-navegacao">
+       <nav id="menu-navegacao">
       <ul>
-        <li><a href="#inicio">Início</a></li>
-        <li><a href="#produtos">Temporadas</a></li>
-        <li><a href="#produtos">Masculino</a></li>
-        <li><a href="#produtos">Feminino</a></li>
-        <li><a href="#produtos">Bermudas</a></li>
-        <li><a href="#produtos">Calçados</a></li>
-        <li><a href="#produtos">Saias</a></li>
+        <li><a href="#inicio" data-categoria="todos">Início</a></li>
+        <li><a href="#produtos" data-categoria="temporadas">Temporadas</a></li>
+        <li><a href="#produtos" data-categoria="masculino">Masculino</a></li>
+        <li><a href="#produtos" data-categoria="feminino">Feminino</a></li>
+        <li><a href="#produtos" data-categoria="bermudas">Bermudas</a></li>
+        <li><a href="#produtos" data-categoria="calcados">Calçados</a></li>
+        <li><a href="#produtos" data-categoria="saias">Saias</a></li>
       </ul>
     </nav>
+
   </header>
 
   <main id="inicio">
     <section class="carrossel" aria-label="Destaques da Loja">
       <div class="slides-container" id="slides-container">
-        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://unsplash.com');">
+        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(img/carrosel_economico.jpg);">
           <h1>Veja Modelos de roupas em promoção.</h1>
           <p>Com até 30% de promoção, economize dinheiro e participe da moda!</p>
           <a href="#produtos" class="btn-destaque">Ver Coleção</a>
         </div>
 
-        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://unsplash.com');">
+        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(img/carrosel_temporada.jpg);">
           <h1>Modelos da Temporada</h1>
           <p>Acompanhe os modelos mais recentes e belos na época do verão e inverno.</p>
           <a href="#produtos" class="btn-destaque">Acompanhar Agora</a>
         </div>
 
-        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://unsplash.com');">
+        <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(img/carrosel_Terceiro.jpg);">
           <h1>Principais Buscas</h1>
           <p>Acompanhe os modelos de roupas mais acessados.</p>
           <a href="#produtos" class="btn-destaque">Visualizar Agora</a>
@@ -56,25 +57,55 @@
       </div>
     </section>
 
-    <section class="vitrine" id="produtos">
+       <section class="vitrine" id="produtos">
       <h2>Destaques da Semana</h2>
       
-      <div class="grade-produtos">
-        <div class="card-produto">
-          <img src="https://unsplash.com" alt="Camiseta Básica Branca">
-          <h3>Camiseta Básica Premium</h3>
+      <div class="grade-produtos" id="vitrine-destaques">
+              <div class="card-produto" id="produto1" data-views="0" data-categoria="masculino">
+          <img src="img/mas2_mod_ver.jpg" alt="Camiseta Básica para verão">
+          <h3>Camiseta Básica Premium - verão</h3>
           <p class="preco">R$ 79,90</p>
           <button class="btn-comprar">Comprar</button>
         </div>
 
-        <div class="card-produto">
-          <img src="https://unsplash.com" alt="Calça Jeans">
+        <div class="card-produto" id="produto2" data-views="0" data-categoria="masculino">
+          <img src="img/cal_mas1.jpg" alt="Calça Jeans">
           <h3>Calça Jeans Slim</h3>
           <p class="preco">R$ 159,90</p>
           <button class="btn-comprar">Comprar</button>
         </div>
+
+        <div class="card-produto" id="produto3" data-views="0" data-categoria="feminino temporadas">
+          <img src="img/blusa_mas1.jpg" alt="Jaqueta Jeans">
+          <h3>Jaqueta Jeans Clássica</h3>
+          <p class="preco">R$ 219,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
+        <div class="card-produto" id="produto4" data-views="0" data-categoria="masculino bermudas">
+          <img src="img/mas1_mod_ver.jpg" alt="Bermuda para verão">
+          <h3>Bermuda Azul - verão</h3>
+          <p class="preco">R$ 99,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
+        <div class="card-produto" id="produto5" data-views="0" data-categoria="masculino feminino calcados">
+          <img src="img/calçados11.jpg" alt="Tênis Casual">
+          <h3>Tênis Casual Urbano</h3>
+          <p class="preco">R$ 249,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
+        <div class="card-produto" id="produto6" data-views="0" data-categoria="feminino saias">
+          <img src="img/saia_fem.jpg" alt="Saia Midi">
+          <h3>Saia Midi Elegante</h3>
+          <p class="preco">R$ 129,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
       </div>
     </section>
+
   </main>
 
   <footer id="contato">
@@ -104,7 +135,12 @@
     </div>
   </footer>
 
-  
+  <script src="script.js"></script>
+  <script>
+ 
+
+    
+  </script>
 </body>
-<script src="script.js"></script>
+
 </html>
