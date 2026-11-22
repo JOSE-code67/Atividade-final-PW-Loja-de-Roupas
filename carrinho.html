@@ -1,13 +1,237 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrinho - Clothes X</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .carrinho-secao {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      min-height: 50vh;
+    }
+    .carrinho-secao h1 {
+      margin-bottom: 24px;
+      color: #0F172A;
+    }
+    .item-carrinho {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .item-carrinho img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .item-info {
+      flex: 1;
+      min-width: 180px;
+    }
+    .item-controles {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-qtd {
+      background: #E2E8F0;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-remover {
+      background: transparent;
+      border: 1px solid #DC2626;
+      color: #DC2626;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .carrinho-resumo {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .acoes-resumo {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-voltar {
+      background: #334155;
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    
+
+  <header>
+    <div class="logo">Clothes X</div>
+    <button class="menu-toggle" id="btn-menu" aria-label="Abrir Menu">☰</button>
+    <nav id="menu-navegacao">
+      <ul>
+        <li><a href="index.html#inicio">Início</a></li>
+        <li><a href="index.html#produtos">Temporadas</a></li>
+        <li><a href="index.html#produtos">Masculino</a></li>
+        <li><a href="index.html#produtos">Feminino</a></li>
+        <li><a href="index.html#produtos">Bermudas</a></li>
+        <li><a href="index.html#produtos">Calçados</a></li>
+        <li><a href="index.html#produtos">Saias</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="carrinho-secao">
+    <h1>Seu Carrinho de Compras</h1>
+
+    <div id="lista-carrinho"></div>
+
+    <div class="carrinho-resumo" id="resumo-carrinho">
+      <div>
+        <h3>Total do Pedido: <span id="valor-total">R$ 0,00</span></h3>
+      </div>
+      <div class="acoes-resumo">
+        <a href="index.html#produtos" class="btn-voltar">Continuar Comprando</a>
+        <button class="btn-comprar" id="btn-finalizar">Finalizar Compra</button>
+      </div>
+    </div>
+  </main>
+
+  <footer id="contato">
+    <div class="footer-conteudo">
+      <div class="footer-coluna">
+        <h4>Sobre a Loja</h4>
+        <p>Moda moderna com entrega para todo o Brasil. Qualidade garantida em cada peça.</p>
+      </div>
+
+      <div class="footer-coluna">
+        <h4>Links Rápidos</h4>
+        <a href="index.html#inicio">Início</a>
+        <a href="index.html#produtos">Catálogo</a>
+        <a href="#">Política de Trocas</a>
+      </div>
+
+      <div class="footer-coluna">
+        <h4>Atendimento</h4>
+        <p>WhatsApp: (11) 99999-9999</p>
+        <p>E-mail: contato@clothesx.com.br</p>
+        <p>Seg a Sex: 09h às 18h</p>
+      </div>
+    </div>
+
+    <div class="footer-direitos">
+      &copy; 2026 Clothes X. Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script>
+    // Menu mobile na página do carrinho
+    const btnMenu = document.getElementById('btn-menu');
+    const menuNav = document.getElementById('menu-navegacao');
+    if (btnMenu && menuNav) {
+      btnMenu.addEventListener('click', () => menuNav.classList.toggle('ativo'));
+    }
+
+    const listaContainer = document.getElementById('lista-carrinho');
+    const valorTotalEl = document.getElementById('valor-total');
+    const resumoEl = document.getElementById('resumo-carrinho');
+
+    function formatarReal(valor) {
+      return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function renderizarCarrinho() {
+      const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+
+      if (carrinho.length === 0) {
+        listaContainer.innerHTML = '<p>Seu carrinho está vazio no momento.</p>';
+        valorTotalEl.textContent = 'R$ 0,00';
+        return;
+      }
+
+      let total = 0;
+
+      listaContainer.innerHTML = carrinho.map((item, index) => {
+        const subtotal = item.preco * item.quantidade;
+        total += subtotal;
+
+        return `
+          <div class="item-carrinho">
+            <img src="${item.imagem}" alt="${item.nome}">
+            <div class="item-info">
+              <h3>${item.nome}</h3>
+              <p class="preco">${formatarReal(item.preco)} cada</p>
+            </div>
+            <div class="item-controles">
+              <button class="btn-qtd" onclick="alterarQuantidade(${index}, -1)">-</button>
+              <span><strong>${item.quantidade}</strong></span>
+              <button class="btn-qtd" onclick="alterarQuantidade(${index}, 1)">+</button>
+            </div>
+            <p><strong>${formatarReal(subtotal)}</strong></p>
+            <button class="btn-remover" onclick="removerItem(${index})">Remover</button>
+          </div>
+        `;
+      }).join('');
+
+      valorTotalEl.textContent = formatarReal(total);
+    }
+
+    function alterarQuantidade(index, delta) {
+      const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+      if (!carrinho[index]) return;
+
+      carrinho[index].quantidade += delta;
+      if (carrinho[index].quantidade <= 0) {
+        carrinho.splice(index, 1);
+      }
+
+      localStorage.setItem('clothesx_carrinho', JSON.stringify(carrinho));
+      renderizarCarrinho();
+    }
+
+    function removerItem(index) {
+      const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+      carrinho.splice(index, 1);
+      localStorage.setItem('clothesx_carrinho', JSON.stringify(carrinho));
+      renderizarCarrinho();
+    }
+
+    document.getElementById('btn-finalizar').addEventListener('click', () => {
+      const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+      if (carrinho.length === 0) {
+        alert('Adicione pelo menos um produto antes de finalizar.');
+        return;
+      }
+      alert('Compra realizada com sucesso na Clothes X!');
+      localStorage.removeItem('clothesx_carrinho');
+      renderizarCarrinho();
+    });
+
+    renderizarCarrinho();
+  </script>
 </body>
-<script src="scrip.js"></script>
 </html>

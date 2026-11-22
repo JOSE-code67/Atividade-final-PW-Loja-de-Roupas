@@ -15,11 +15,11 @@
       <ul>
         <li><a href="#inicio" data-categoria="todos">Início</a></li>
         <li><a href="#produtos" data-categoria="temporadas">Temporadas</a></li>
-        <li><a href="#produtos" data-categoria="masculino">Masculino</a></li>
-        <li><a href="#produtos" data-categoria="feminino">Feminino</a></li>
-        <li><a href="#produtos" data-categoria="bermudas">Bermudas</a></li>
-        <li><a href="#produtos" data-categoria="calcados">Calçados</a></li>
-        <li><a href="#produtos" data-categoria="saias">Saias</a></li>
+        <li><a href="#secao-masculino" data-categoria="masculino">Masculino</a></li>
+        <li><a href="#secao-feminino" data-categoria="feminino">Feminino</a></li>
+        <li><a href="#secao-bermudas" data-categoria="bermudas">Bermudas</a></li>
+        <li><a href="#secao-calcados" data-categoria="calcados">Calçados</a></li>
+        <li><a href="#secao-feminino" data-categoria="saias">Saias</a></li>
       </ul>
     </nav>
 
@@ -56,12 +56,18 @@
         <button class="bolinha" data-index="2" aria-label="Ir para slide 3"></button>
       </div>
     </section>
-
+    <div>
+      <img src="img/animate1.gif" alt="modelihos animados" width="150px" height="150px">
+    </div>
+      
        <section class="vitrine" id="produtos">
       <h2>Destaques da Semana</h2>
-      
-      <div class="grade-produtos" id="vitrine-destaques">
-              <div class="card-produto" id="produto1" data-views="0" data-categoria="masculino">
+      <div class="grade-produtos" id="vitrine-destaques"></div>
+    </section>
+      <section class="vitrine" id="secao-masculino">
+      <h2>Masculino</h2>
+      <div class="grade-produtos">
+        <div class="card-produto" id="produto1" data-views="0" data-categoria="masculino">
           <img src="img/mas2_mod_ver.jpg" alt="Camiseta Básica para verão">
           <h3>Camiseta Básica Premium - verão</h3>
           <p class="preco">R$ 79,90</p>
@@ -75,24 +81,14 @@
           <button class="btn-comprar">Comprar</button>
         </div>
 
+    </section>
+       <section class="vitrine" id="secao-feminino">
+      <h2>Feminino & Saias</h2>
+      <div class="grade-produtos">
         <div class="card-produto" id="produto3" data-views="0" data-categoria="feminino temporadas">
-          <img src="img/blusa_mas1.jpg" alt="Jaqueta Jeans">
-          <h3>Jaqueta Jeans Clássica</h3>
+          <img src="img/fem4_mod_inver.jpg" alt="Jaqueta Jeans">
+          <h3>Jaqueta Clássica</h3>
           <p class="preco">R$ 219,90</p>
-          <button class="btn-comprar">Comprar</button>
-        </div>
-
-        <div class="card-produto" id="produto4" data-views="0" data-categoria="masculino bermudas">
-          <img src="img/mas1_mod_ver.jpg" alt="Bermuda para verão">
-          <h3>Bermuda Azul - verão</h3>
-          <p class="preco">R$ 99,90</p>
-          <button class="btn-comprar">Comprar</button>
-        </div>
-
-        <div class="card-produto" id="produto5" data-views="0" data-categoria="masculino feminino calcados">
-          <img src="img/calçados11.jpg" alt="Tênis Casual">
-          <h3>Tênis Casual Urbano</h3>
-          <p class="preco">R$ 249,90</p>
           <button class="btn-comprar">Comprar</button>
         </div>
 
@@ -102,7 +98,84 @@
           <p class="preco">R$ 129,90</p>
           <button class="btn-comprar">Comprar</button>
         </div>
+      </div>
+    </section>
+     <section class="vitrine" id="secao-bermudas">
+      <h2>Bermudas</h2>
+      <div class="grade-produtos">
+        <div class="card-produto" id="produto4" data-views="0" data-categoria="masculino bermudas">
+          <img src="img/mas1_mod_ver.jpg" alt="Bermuda para verão">
+          <h3>Bermuda Azul - verão</h3>
+          <p class="preco">R$ 99,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+      </div>
+    </section>
+      <section class="vitrine" id="secao-calcados">
+      <h2>Calçados</h2>
+      <div class="grade-produtos">
+        <div class="card-produto" id="produto5" data-views="0" data-categoria="masculino feminino calcados">
+          <img src="img/calçados11.jpg" alt="Tênis Casual">
+          <h3>Tênis Casual Urbano</h3>
+          <p class="preco">R$ 249,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
 
+        <div class="card-produto" id="produto7" data-views="0" data-categoria="feminino calcados">
+          <img src="img/cal_fem_ver1.jpg" alt="Sandália Preta Tira T Salto Bloco">
+          <h3>Sandália Preta Tira T</h3>
+          <p class="preco">R$ 149,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
+        <div class="card-produto" id="produto9" data-views="0" data-categoria="feminino calcados temporadas">
+          <img src="img/cal_fem_ver3.jpg" alt="Sandália Azul Celeste">
+          <h3>Sandália Azul Celeste</h3>
+          <p class="preco">R$ 159,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
+        <div class="card-produto" id="produto10" data-views="0" data-categoria="feminino calcados">
+          <img src="img/cal_fem_ver4.jpg" alt="Sandália Branca Salto Médio">
+          <h3>Sandália Branca Clássica</h3>
+          <p class="preco">R$ 169,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
+        <div class="card-produto" id="produto12" data-views="0" data-categoria="masculino calcados">
+          <img src="img/calçados1.jpg" alt="Mocassim Penny Loafer Camurça">
+          <h3>Mocassim Camurça Marrom</h3>
+          <p class="preco">R$ 229,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
+        <div class="card-produto" id="produto13" data-views="0" data-categoria="masculino calcados temporadas">
+          <img src="img/calçados2.jpg" alt="Sapato Náutico Camurça">
+          <h3>Mocassim Náutico Caramelo</h3>
+          <p class="preco">R$ 219,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
+        <div class="card-produto" id="produto14" data-views="0" data-categoria="masculino calcados">
+          <img src="img/calçados3.jpg" alt="Sapato Casual preto">
+          <h3>Sapato Camurça preto</h3>
+          <p class="preco">R$ 239,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
+        <div class="card-produto" id="produto15" data-views="0" data-categoria="masculino calcados">
+          <img src="img/calçados4.jpg" alt="Loafer Marrom Solado Branco">
+          <h3>Loafer Camurça Solado Branco</h3>
+          <p class="preco">R$ 249,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
+
+        <div class="card-produto" id="produto16" data-views="0" data-categoria="masculino calcados temporadas">
+          <img src="img/calçados5.jpg" alt="Bota Chelsea Preta Couro">
+          <h3>Bota Chelsea Couro Preta</h3>
+          <p class="preco">R$ 299,90</p>
+          <button class="btn-comprar">Comprar</button>
+        </div>
       </div>
     </section>
 

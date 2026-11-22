@@ -1,146 +1,114 @@
-// man, isso tudo é para o carrosel funcionar, com o menu, se quiser da uma olhada @isaque - é o zé
-const btnMenu = document.getElementById('btn-menu');
-const menuNav = document.getElementById('menu-navegacao');
+class card_objeto {
+  constructor(elementoHTML) {
+    this.elemento = elementoHTML;
+    this.id = elementoHTML.id;
+    this.nome = elementoHTML.querySelector('h3').textContent;
+    this.precoTexto = elementoHTML.querySelector('.preco').textContent;
+    this.precoNumero = Number(
+      this.precoTexto.replace('R$', '').replace(/\./g, '').replace(',', '.').trim()
+    );
+    this.imagem = elementoHTML.querySelector('img').getAttribute('src');
 
-if (btnMenu && menuNav) {
-  btnMenu.addEventListener('click', () => {
-    menuNav.classList.toggle('ativo');
-  });
+   
+    const viewsSalvas = JSON.parse(localStorage.getItem('clothesx_views')) || {};
+    this.visualizacoes = viewsSalvas[this.id] ?? (Number(elementoHTML.getAttribute('data-views')) || 0);
+    this.elemento.setAttribute('data-views', this.visualizacoes);
 
+    this.categorias = (elementoHTML.getAttribute('data-categoria') || '').toLowerCase().split(' ');
 
-  document.querySelectorAll('#menu-navegacao a').forEach(link => {
-    link.addEventListener('click', () => {
-      menuNav.classList.remove('ativo');
-    });
-  });
-}
-
-
-const slidesContainer = document.getElementById('slides-container');
-const slides = document.querySelectorAll('.slide');
-const bolinhas = document.querySelectorAll('.bolinha');
-const btnAnterior = document.getElementById('btn-anterior');
-const btnProximo = document.getElementById('btn-proximo');
-
-let indiceAtual = 0;
-const totalSlides = slides.length;
-
-function mostrarSlide(indice) {
-  if (indice >= totalSlides) {
-    indiceAtual = 0;
-  } else if (indice < 0) {
-    indiceAtual = totalSlides - 1;
-  } else {
-    indiceAtual = indice;
-  }
-
-
-  slidesContainer.style.transform = `translateX(-${indiceAtual * 100}%)`;
-
-
-  bolinhas.forEach(b => b.classList.remove('ativa'));
-  bolinhas[indiceAtual].classList.add('ativa');
-}
-
-
-btnProximo.addEventListener('click', () => {
-  mostrarSlide(indiceAtual + 1);
-  reiniciarTempo();
-});
-
-btnAnterior.addEventListener('click', () => {
-  mostrarSlide(indiceAtual - 1);
-  reiniciarTempo();
-});
-
-
-bolinhas.forEach(bolinha => {
-  bolinha.addEventListener('click', () => {
-    const index = Number(bolinha.getAttribute('data-index'));
-    mostrarSlide(index);
-    reiniciarTempo();
-  });
-});
-
-
-let intervalo = setInterval(() => {
-  mostrarSlide(indiceAtual + 1);
-}, 5000);
-
-
-function reiniciarTempo() {
-  clearInterval(intervalo);
-  intervalo = setInterval(() => {
-    mostrarSlide(indiceAtual + 1);
-  }, 5000);
-}
-
-
-// agora, essa parte aqui é dos card @Isaque - é o zé
- class card_objeto{
-    constructor(elementoHTML){
-      this.elemento = elementoHTML;
-      this.nome = elementoHTML.querySelector('h3').textContent;
-      this.visualizacoes = Number(elementoHTML.getAttribute('data-views')) || 0;
-       this.categorias = (elementoHTML.getAttribute('data-categoria') || '').toLowerCase().split(' ');
-
-       const botao = elementoHTML.querySelector('.btn-comprar');
-       if (botao){
-        botao.addEventListener('click', ()=>{
-          this.adicionarvisualizacao();
-
-        });
-       }
-    }
-    adicionarvisualizacao(){
-      this.visualizacoes += 1;
-      this.elemento.setAttribute('data-views', this.visualizacoes);
-      console.log(`${this.nome}: ${this.visualizacoes} visualizações`);
-      atualizarVitrine();
+    
+    const botao = elementoHTML.querySelector('.btn-comprar');
+    if (botao) {
+      botao.addEventListener('click', () => {
+        this.registrarCompra();
+      });
     }
   }
 
-const vitrine = document.getElementById('vitrine-destaques');
-const tituloVitrine = document.querySelector('#produtos h2');
-let categoriaAtual = 'todos';       
-const produtos = Array.from(document.querySelectorAll('#vitrine-destaques .card-produto'))
+  registrarCompra() {
+   
+    this.visualizacoes += 1;
+    this.elemento.setAttribute('data-views', this.visualizacoes);
+
+    const viewsSalvas = JSON.parse(localStorage.getItem('clothesx_views')) || {};
+    viewsSalvas[this.id] = this.visualizacoes;
+    localStorage.setItem('clothesx_views', JSON.stringify(viewsSalvas));
+
+    
+    atualizarVitrineDestaques();
+
+   
+    const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+    const itemExistente = carrinho.find(item => item.id === this.id);
+
+    if (itemExistente) {
+      itemExistente.quantidade += 1;
+    } else {
+      carrinho.push({
+        id: this.id,
+        nome: this.nome,
+        preco: this.precoNumero,
+        imagem: this.imagem,
+        quantidade: 1
+      });
+    }
+
+    localStorage.setItem('clothesx_carrinho', JSON.stringify(carrinho));
+    window.location.href = 'carrinho.html';
+  }
+}
+
+const vitrineDestaques = document.getElementById('vitrine-destaques');
+
+
+const todosProdutos = Array.from(document.querySelectorAll('main .card-produto'))
   .map(card => new card_objeto(card));
 
 
-function atualizarVitrine() {
-  if (!vitrine) return;
+function atualizarVitrineDestaques() {
+  if (!vitrineDestaques) return;
 
-  produtos.sort((a, b) => b.visualizacoes - a.visualizacoes);
+  vitrineDestaques.innerHTML = '';
 
-  let exibidos = 0;
+  const top6 = [...todosProdutos]
+    .sort((a, b) => b.visualizacoes - a.visualizacoes)
+    .slice(0, 6);
 
-  produtos.forEach(item => {
-    vitrine.appendChild(item.elemento);
-    const pertenceCategoria = categoriaAtual === 'todos' || item.categorias.includes(categoriaAtual);
+  top6.forEach(produto => {
+   
+    const cardClone = produto.elemento.cloneNode(true);
+    cardClone.removeAttribute('id');
 
-    if (pertenceCategoria && exibidos < 6) {
-      item.elemento.style.display = '';
-      exibidos++;
-    } else {
-      item.elemento.style.display = 'none';
+
+    const botaoClone = cardClone.querySelector('.btn-comprar');
+    if (botaoClone) {
+      botaoClone.addEventListener('click', () => {
+        produto.registrarCompra();
+      });
     }
+
+    vitrineDestaques.appendChild(cardClone);
   });
 }
 
 
 document.querySelectorAll('#menu-navegacao a[data-categoria]').forEach(link => {
   link.addEventListener('click', () => {
-    categoriaAtual = link.getAttribute('data-categoria');
+    const categoria = link.getAttribute('data-categoria');
 
-    if (tituloVitrine) {
-      tituloVitrine.textContent = categoriaAtual === 'todos'
-        ? 'Destaques da Semana'
-        : `Destaques: ${link.textContent}`;
-    }
+    todosProdutos.forEach(produto => {
+      const pertence = categoria === 'todos' || produto.categorias.includes(categoria);
+      produto.elemento.style.display = pertence ? '' : 'none';
+    });
 
-    atualizarVitrine();
+
+    document.querySelectorAll('main section.vitrine:not(#produtos)').forEach(secao => {
+      const temVisivel = Array.from(secao.querySelectorAll('.card-produto'))
+        .some(card => card.style.display !== 'none');
+      secao.style.display = temVisivel ? '' : 'none';
+    });
   });
 });
 
 
-atualizarVitrine();
+atualizarVitrineDestaques();
