@@ -11,7 +11,7 @@
   <header>
     <div class="logo">Clothes X</div>
     <button class="menu-toggle" id="btn-menu" aria-label="Abrir Menu">☰</button>
-       <nav id="menu-navegacao">
+    <nav id="menu-navegacao">
       <ul>
         <li><a href="#inicio" data-categoria="todos">Início</a></li>
         <li><a href="#produtos" data-categoria="temporadas">Temporadas</a></li>
@@ -20,9 +20,9 @@
         <li><a href="#secao-bermudas" data-categoria="bermudas">Bermudas</a></li>
         <li><a href="#secao-calcados" data-categoria="calcados">Calçados</a></li>
         <li><a href="#secao-feminino" data-categoria="saias">Saias</a></li>
+        <li><a href="carrinho.html">🛒</a></li>
       </ul>
     </nav>
-
   </header>
 
   <main id="inicio">
@@ -56,134 +56,145 @@
         <button class="bolinha" data-index="2" aria-label="Ir para slide 3"></button>
       </div>
     </section>
+
     <section style="justify-content: space-between; display: flex; flex-direction: row;">
-    <div>
-      <img src="img/animate1.gif" alt="modelihos animados" width="150px" height="150px">
-    </div>
-        <div>
-      <img src="img/animate2.gif" alt="modelihos animados" width="150px" height="150px">
-    </div>
+      <div>
+        <img src="img/animate1.gif" alt="modelihos animados" width="150px" height="150px">
+      </div>
+      <div>
+        <img src="img/animate2.gif" alt="modelihos animados" width="150px" height="150px">
+      </div>
     </section>
       
-       <section class="vitrine" id="produtos">
+    <section class="vitrine" id="produtos">
       <h2>Destaques da Semana</h2>
       <div class="grade-produtos" id="vitrine-destaques"></div>
     </section>
-      <section class="vitrine" id="secao-masculino">
+
+    <section class="vitrine" id="secao-masculino">
       <h2>Masculino</h2>
       <div class="grade-produtos">
         <div class="card-produto" id="produto1" data-views="0" data-categoria="masculino">
-          <img src="img/mas2_mod_ver.jpg" alt="Camiseta Básica para verão">
+          <img src="img/produto1-camisa-casual-branca.png" alt="Camiseta Básica para verão">
           <h3>Camiseta Básica Premium - verão</h3>
           <p class="preco">R$ 79,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Camiseta_Básica_Premium-verão" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
 
         <div class="card-produto" id="produto2" data-views="0" data-categoria="masculino">
-          <img src="img/cal_mas1.jpg" alt="Calça Jeans">
+          <img src="img/produto2-calça-jeans-azul.png" alt="Calça Jeans">
           <h3>Calça Jeans Slim</h3>
           <p class="preco">R$ 159,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Calça_Jeans_Slim" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
-
+        <div></div>
+        <div></div>
+      </div>
     </section>
-       <section class="vitrine" id="secao-feminino">
+
+    <section class="vitrine" id="secao-feminino">
       <h2>Feminino & Saias</h2>
       <div class="grade-produtos">
         <div class="card-produto" id="produto3" data-views="0" data-categoria="feminino temporadas">
           <img src="img/fem4_mod_inver.jpg" alt="Jaqueta Jeans">
           <h3>Jaqueta Clássica</h3>
           <p class="preco">R$ 219,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Jaqueta_Clássica" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
 
         <div class="card-produto" id="produto6" data-views="0" data-categoria="feminino saias">
           <img src="img/saia_fem.jpg" alt="Saia Midi">
           <h3>Saia Midi Elegante</h3>
           <p class="preco">R$ 129,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Saia_Midi_Elegante" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
+        <div></div>
+        <div></div>
       </div>
     </section>
-     <section class="vitrine" id="secao-bermudas">
+
+    <section class="vitrine" id="secao-bermudas">
       <h2>Bermudas</h2>
       <div class="grade-produtos">
         <div class="card-produto" id="produto4" data-views="0" data-categoria="masculino bermudas">
           <img src="img/mas1_mod_ver.jpg" alt="Bermuda para verão">
           <h3>Bermuda Azul - verão</h3>
           <p class="preco">R$ 99,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Bermuda_Azul-verão" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </section>
-      <section class="vitrine" id="secao-calcados">
+
+    <section class="vitrine" id="secao-calcados">
       <h2>Calçados</h2>
       <div class="grade-produtos">
         <div class="card-produto" id="produto5" data-views="0" data-categoria="masculino feminino calcados">
           <img src="img/calçados11.jpg" alt="Tênis Casual">
           <h3>Tênis Casual Urbano</h3>
           <p class="preco">R$ 249,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Tênis_Casual_Urbano" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
 
         <div class="card-produto" id="produto7" data-views="0" data-categoria="feminino calcados">
           <img src="img/cal_fem_ver1.jpg" alt="Sandália Preta Tira T Salto Bloco">
           <h3>Sandália Preta Tira T</h3>
           <p class="preco">R$ 149,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Sandália_Preta_Tira_T" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
 
         <div class="card-produto" id="produto9" data-views="0" data-categoria="feminino calcados temporadas">
           <img src="img/cal_fem_ver3.jpg" alt="Sandália Azul Celeste">
           <h3>Sandália Azul Celeste</h3>
           <p class="preco">R$ 159,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Sandália_Azul_Celeste" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
 
         <div class="card-produto" id="produto10" data-views="0" data-categoria="feminino calcados">
           <img src="img/cal_fem_ver4.jpg" alt="Sandália Branca Salto Médio">
           <h3>Sandália Branca Clássica</h3>
           <p class="preco">R$ 169,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Sandália_Branca_Clássica" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
 
         <div class="card-produto" id="produto12" data-views="0" data-categoria="masculino calcados">
           <img src="img/calçados1.jpg" alt="Mocassim Penny Loafer Camurça">
           <h3>Mocassim Camurça Marrom</h3>
           <p class="preco">R$ 229,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Mocassim_Camurça_Marrom" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
 
         <div class="card-produto" id="produto13" data-views="0" data-categoria="masculino calcados temporadas">
           <img src="img/calçados2.jpg" alt="Sapato Náutico Camurça">
           <h3>Mocassim Náutico Caramelo</h3>
           <p class="preco">R$ 219,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Mocassim_Náutico_Caramelo" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
 
         <div class="card-produto" id="produto14" data-views="0" data-categoria="masculino calcados">
           <img src="img/calçados3.jpg" alt="Sapato Casual preto">
           <h3>Sapato Camurça preto</h3>
           <p class="preco">R$ 239,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Sapato_Camurça_preto" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
 
         <div class="card-produto" id="produto15" data-views="0" data-categoria="masculino calcados">
           <img src="img/calçados4.jpg" alt="Loafer Marrom Solado Branco">
           <h3>Loafer Camurça Solado Branco</h3>
           <p class="preco">R$ 249,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Loafer_Camurça_Solado_Branco" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
 
         <div class="card-produto" id="produto16" data-views="0" data-categoria="masculino calcados temporadas">
           <img src="img/calçados5.jpg" alt="Bota Chelsea Preta Couro">
           <h3>Bota Chelsea Couro Preta</h3>
           <p class="preco">R$ 299,90</p>
-          <button class="btn-comprar">Comprar</button>
+          <a href="#Bota_Chelsea_Couro_Preta" style="color: black; text-decoration: none;"><button type="button">Comprar</button></a>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer id="contato">
@@ -213,12 +224,147 @@
     </div>
   </footer>
 
+  <!-- Popups / Modais dos Produtos -->
+  <div id="Camiseta_Básica_Premium-verão" class="overlayton">
+    <div class="popup">
+      <img src="img/produto1-camisa-casual-branca.png" alt="Camiseta Básica para verão" width="200px" height="200px">
+      <h3>Camiseta Básica Premium - verão</h3>
+      <p class="preco">R$ 79,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto1">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto1">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Calça_Jeans_Slim" class="overlayton">
+    <div class="popup">
+      <img src="img/produto2-calça-jeans-azul.png" alt="Calça Jeans" width="200px" height="200px">
+      <h3>Calça Jeans Slim</h3>
+      <p class="preco">R$ 159,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto2">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto2">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Jaqueta_Clássica" class="overlayton">
+    <div class="popup">
+      <img src="img/fem4_mod_inver.jpg" alt="Jaqueta Jeans" width="200px" height="200px">
+      <h3>Jaqueta Clássica</h3>
+      <p class="preco">R$ 219,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto3">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto3">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Saia_Midi_Elegante" class="overlayton">
+    <div class="popup">
+      <img src="img/saia_fem.jpg" alt="Saia Midi" width="200px" height="200px">
+      <h3>Saia Midi Elegante</h3>
+      <p class="preco">R$ 129,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto6">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto6">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Bermuda_Azul-verão" class="overlayton">
+    <div class="popup">
+      <img src="img/mas1_mod_ver.jpg" alt="Bermuda para verão" width="200px" height="200px">
+      <h3>Bermuda Azul - verão</h3>
+      <p class="preco">R$ 99,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto4">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto4">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Tênis_Casual_Urbano" class="overlayton">
+    <div class="popup">
+      <img src="img/calçados11.jpg" alt="Tênis Casual" width="200px" height="200px">
+      <h3>Tênis Casual Urbano</h3>
+      <p class="preco">R$ 249,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto5">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto5">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Sandália_Preta_Tira_T" class="overlayton">
+    <div class="popup">
+      <img src="img/cal_fem_ver1.jpg" alt="Sandália Preta Tira T Salto Bloco" width="200px" height="200px">
+      <h3>Sandália Preta Tira T</h3>
+      <p class="preco">R$ 149,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto7">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto7">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Sandália_Azul_Celeste" class="overlayton">
+    <div class="popup">
+      <img src="img/cal_fem_ver3.jpg" alt="Sandália Azul Celeste" width="200px" height="200px">
+      <h3>Sandália Azul Celeste</h3>
+      <p class="preco">R$ 159,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto9">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto9">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Sandália_Branca_Clássica" class="overlayton">
+    <div class="popup">
+      <img src="img/cal_fem_ver4.jpg" alt="Sandália Branca Salto Médio" width="200px" height="200px">
+      <h3>Sandália Branca Clássica</h3>
+      <p class="preco">R$ 169,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto10">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto10">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Mocassim_Camurça_Marrom" class="overlayton">
+    <div class="popup">
+      <img src="img/calçados1.jpg" alt="Mocassim Penny Loafer Camurça" width="200px" height="200px">
+      <h3>Mocassim Camurça Marrom</h3>
+      <p class="preco">R$ 229,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto12">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto12">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Mocassim_Náutico_Caramelo" class="overlayton">
+    <div class="popup">
+      <img src="img/calçados2.jpg" alt="Sapato Náutico Camurça" width="200px" height="200px">
+      <h3>Mocassim Náutico Caramelo</h3>
+      <p class="preco">R$ 219,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto13">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto13">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Sapato_Camurça_preto" class="overlayton">
+    <div class="popup">
+      <img src="img/calçados3.jpg" alt="Sapato Casual preto" width="200px" height="200px">
+      <h3>Sapato Camurça preto</h3>
+      <p class="preco">R$ 239,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto14">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto14">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Loafer_Camurça_Solado_Branco" class="overlayton">
+    <div class="popup">
+      <img src="img/calçados4.jpg" alt="Loafer Marrom Solado Branco" width="200px" height="200px">
+      <h3>Loafer Camurça Solado Branco</h3>
+      <p class="preco">R$ 249,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto15">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto15">Fechar</button>
+    </div>
+  </div>
+
+  <div id="Bota_Chelsea_Couro_Preta" class="overlayton">
+    <div class="popup">
+      <img src="img/calçados5.jpg" alt="Bota Chelsea Preta Couro" width="200px" height="200px">
+      <h3>Bota Chelsea Couro Preta</h3>
+      <p class="preco">R$ 299,90</p>
+      <button type="button" class="btn-comprar" data-produto-id="produto16">Comprar</button>
+      <button type="button" class="btn-fechar" data-produto-id="produto16">Fechar</button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
-  <script>
- 
-
-    
-  </script>
 </body>
-
 </html>
