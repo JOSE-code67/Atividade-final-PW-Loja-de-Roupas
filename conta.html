@@ -1,19 +1,505 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Conta - Clothes X</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .conta-secao {
+      max-width: 520px;
+      margin: 40px auto;
+      padding: 0 20px 40px;
+      min-height: 50vh;
+    }
+    .conta-secao h1 {
+      margin-bottom: 8px;
+      color: #0F172A;
+    }
+    .conta-subtitulo {
+      color: #64748b;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+    .conta-card {
+      background: #fff;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    }
+    .conta-card h2 {
+      font-size: 1.15rem;
+      margin-bottom: 16px;
+      color: #0F172A;
+    }
+    .form-grupo {
+      margin-bottom: 14px;
+    }
+    .form-grupo label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .form-grupo input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-grupo input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .btn-conta {
+      width: 100%;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .btn-entrar {
+      background: #2563eb;
+      color: #fff;
+    }
+    .btn-entrar:hover { background: #1d4ed8; }
+    .btn-cadastrar {
+      background: #0f172a;
+      color: #fff;
+    }
+    .btn-cadastrar:hover { background: #1e293b; }
+    .btn-sair {
+      background: transparent;
+      border: 1px solid #DC2626;
+      color: #DC2626;
+    }
+    .btn-sair:hover {
+      background: #fef2f2;
+    }
+    .msg-erro {
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .msg-sucesso {
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .trocar-form {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+    .trocar-form button {
+      background: none;
+      border: none;
+      color: #2563eb;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
+      font-size: inherit;
+    }
+    .painel-info {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px;
+    }
+    .painel-info li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #E2E8F0;
+      font-size: 0.95rem;
+    }
+    .painel-info li span:first-child {
+      color: #64748b;
+      font-weight: 600;
+    }
+    .painel-info li span:last-child {
+      color: #0F172A;
+      text-align: right;
+      word-break: break-all;
+    }
+    .badge-logado {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .oculto { display: none !important; }
+    .abas {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .aba {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #E2E8F0;
+      background: #F8FAFC;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #64748b;
+    }
+    .aba.ativa {
+      background: #0f172a;
+      color: #fff;
+      border-color: #0f172a;
+    }
+  </style>
 </head>
 <body>
-          <label>
-        <input type="radio" name="questao1" value="verdadeiro" required>
-        Verdadeiro
-      </label>
-      
-      <label>
-        <input type="radio" name="questao1" value="falso">
-        Falso
-      </label>
+
+  <header>
+    <div class="logo">Clothes X</div>
+    <button class="menu-toggle" id="btn-menu" aria-label="Abrir Menu">☰</button>
+    <nav id="menu-navegacao">
+      <ul>
+        <li><a href="index.html#inicio">Início</a></li>
+        <li><a href="index.html#produtos">Temporadas</a></li>
+        <li><a href="index.html#produtos">Masculino</a></li>
+        <li><a href="index.html#produtos">Feminino</a></li>
+        <li><a href="carrinho.html">🛒</a></li>
+        <li><a href="conta.html">Conta</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="conta-secao">
+    <h1>Minha Conta</h1>
+    <p class="conta-subtitulo">Entre ou cadastre-se para ver seus dados.</p>
+
+    <!-- ========== PAINEL LOGADO ========== -->
+    <div id="painel-logado" class="conta-card oculto">
+      <span class="badge-logado">● Conectado</span>
+      <h2>Suas informações</h2>
+      <ul class="painel-info">
+        <li>
+          <span>Nome</span>
+          <span id="info-nome">—</span>
+        </li>
+        <li>
+          <span>E-mail</span>
+          <span id="info-email">—</span>
+        </li>
+        <li>
+          <span>Telefone</span>
+          <span id="info-telefone">—</span>
+        </li>
+        <li>
+          <span>Membro desde</span>
+          <span id="info-desde">—</span>
+        </li>
+      </ul>
+      <button type="button" class="btn-conta btn-sair" id="btn-logout">Sair da conta</button>
+      <p class="trocar-form" style="margin-top: 12px;">
+        <a href="carrinho.html" style="color:#2563eb;font-weight:600;">Ver meu carrinho →</a>
+      </p>
+    </div>
+
+    <!-- ========== ÁREA DESLOGADA (login / cadastro) ========== -->
+    <div id="painel-deslogado" class="conta-card">
+      <div class="abas">
+        <button type="button" class="aba ativa" id="aba-login" data-aba="login">Entrar</button>
+        <button type="button" class="aba" id="aba-cadastro" data-aba="cadastro">Cadastrar</button>
+      </div>
+
+      <div id="msg-erro" class="msg-erro"></div>
+      <div id="msg-sucesso" class="msg-sucesso"></div>
+
+      <!-- Login -->
+      <form id="form-login">
+        <h2>Entrar</h2>
+        <div class="form-grupo">
+          <label for="login-email">E-mail</label>
+          <input type="email" id="login-email" required placeholder="seu@email.com" autocomplete="email">
+        </div>
+        <div class="form-grupo">
+          <label for="login-senha">Senha</label>
+          <input type="password" id="login-senha" required placeholder="Sua senha" autocomplete="current-password" minlength="4">
+        </div>
+        <button type="submit" class="btn-conta btn-entrar">Entrar</button>
+      </form>
+
+      <!-- Cadastro -->
+      <form id="form-cadastro" class="oculto">
+        <h2>Criar conta</h2>
+        <div class="form-grupo">
+          <label for="cad-nome">Nome completo</label>
+          <input type="text" id="cad-nome" required placeholder="Seu nome" autocomplete="name">
+        </div>
+        <div class="form-grupo">
+          <label for="cad-email">E-mail</label>
+          <input type="email" id="cad-email" required placeholder="seu@email.com" autocomplete="email">
+        </div>
+        <div class="form-grupo">
+          <label for="cad-telefone">Telefone</label>
+          <input type="tel" id="cad-telefone" placeholder="(11) 99999-9999" autocomplete="tel">
+        </div>
+        <div class="form-grupo">
+          <label for="cad-senha">Senha</label>
+          <input type="password" id="cad-senha" required placeholder="Mínimo 4 caracteres" minlength="4" autocomplete="new-password">
+        </div>
+        <div class="form-grupo">
+          <label for="cad-senha2">Confirmar senha</label>
+          <input type="password" id="cad-senha2" required placeholder="Repita a senha" minlength="4" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-conta btn-cadastrar">Cadastrar</button>
+      </form>
+    </div>
+  </main>
+
+  <footer id="contato">
+    <div class="footer-conteudo">
+      <div class="footer-coluna">
+        <h4>Sobre a Loja</h4>
+        <p>Moda moderna com entrega para todo o Brasil. Qualidade garantida em cada peça.</p>
+      </div>
+      <div class="footer-coluna">
+        <h4>Links Rápidos</h4>
+        <a href="index.html#inicio">Início</a>
+        <a href="index.html#produtos">Catálogo</a>
+        <a href="carrinho.html">Carrinho</a>
+      </div>
+      <div class="footer-coluna">
+        <h4>Atendimento</h4>
+        <p>WhatsApp: (11) 99999-9999</p>
+        <p>E-mail: contato@clothesx.com.br</p>
+      </div>
+    </div>
+    <div class="footer-direitos">
+      &copy; 2026 Clothes X. Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script>
+    // =====================================
+    // SISTEMA DE CONTA (localStorage)
+    // Chaves:
+    //   clothesx_usuarios  → lista de contas cadastradas
+    //   clothesx_sessao    → e-mail do usuário logado (ou null)
+    // =====================================
+
+    const KEY_USERS = 'clothesx_usuarios';
+    const KEY_SESSION = 'clothesx_sessao';
+
+    const painelLogado = document.getElementById('painel-logado');
+    const painelDeslogado = document.getElementById('painel-deslogado');
+    const formLogin = document.getElementById('form-login');
+    const formCadastro = document.getElementById('form-cadastro');
+    const msgErro = document.getElementById('msg-erro');
+    const msgSucesso = document.getElementById('msg-sucesso');
+    const abaLogin = document.getElementById('aba-login');
+    const abaCadastro = document.getElementById('aba-cadastro');
+
+    // --- helpers ---
+    function getUsuarios() {
+      try {
+        return JSON.parse(localStorage.getItem(KEY_USERS)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function salvarUsuarios(lista) {
+      localStorage.setItem(KEY_USERS, JSON.stringify(lista));
+    }
+
+    function getSessao() {
+      return localStorage.getItem(KEY_SESSION); // e-mail ou null
+    }
+
+    function setSessao(email) {
+      if (email) localStorage.setItem(KEY_SESSION, email);
+      else localStorage.removeItem(KEY_SESSION);
+    }
+
+    function buscarUsuario(email) {
+      const emailNorm = (email || '').trim().toLowerCase();
+      return getUsuarios().find(u => u.email === emailNorm) || null;
+    }
+
+    function mostrarErro(texto) {
+      msgErro.textContent = texto;
+      msgErro.style.display = 'block';
+      msgSucesso.style.display = 'none';
+    }
+
+    function mostrarSucesso(texto) {
+      msgSucesso.textContent = texto;
+      msgSucesso.style.display = 'block';
+      msgErro.style.display = 'none';
+    }
+
+    function limparMsgs() {
+      msgErro.style.display = 'none';
+      msgSucesso.style.display = 'none';
+    }
+
+    function formatarData(iso) {
+      if (!iso) return '—';
+      try {
+        return new Date(iso).toLocaleDateString('pt-BR', {
+          day: '2-digit', month: 'long', year: 'numeric'
+        });
+      } catch {
+        return '—';
+      }
+    }
+
+    // --- UI: logado / deslogado ---
+    function atualizarTela() {
+      const emailSessao = getSessao();
+      const usuario = emailSessao ? buscarUsuario(emailSessao) : null;
+
+      if (usuario) {
+        // Mostra dados da conta
+        painelLogado.classList.remove('oculto');
+        painelDeslogado.classList.add('oculto');
+        document.getElementById('info-nome').textContent = usuario.nome || '—';
+        document.getElementById('info-email').textContent = usuario.email || '—';
+        document.getElementById('info-telefone').textContent = usuario.telefone || 'Não informado';
+        document.getElementById('info-desde').textContent = formatarData(usuario.criadoEm);
+      } else {
+        // Formulários de login/cadastro
+        painelLogado.classList.add('oculto');
+        painelDeslogado.classList.remove('oculto');
+        // se a sessão existia mas o usuário sumiu, limpa
+        if (emailSessao) setSessao(null);
+      }
+    }
+
+    // --- Abas Entrar / Cadastrar ---
+    function trocarAba(qual) {
+      limparMsgs();
+      if (qual === 'login') {
+        abaLogin.classList.add('ativa');
+        abaCadastro.classList.remove('ativa');
+        formLogin.classList.remove('oculto');
+        formCadastro.classList.add('oculto');
+      } else {
+        abaCadastro.classList.add('ativa');
+        abaLogin.classList.remove('ativa');
+        formCadastro.classList.remove('oculto');
+        formLogin.classList.add('oculto');
+      }
+    }
+
+    abaLogin.addEventListener('click', () => trocarAba('login'));
+    abaCadastro.addEventListener('click', () => trocarAba('cadastro'));
+
+    // --- Cadastro ---
+    formCadastro.addEventListener('submit', (e) => {
+      e.preventDefault();
+      limparMsgs();
+
+      const nome = document.getElementById('cad-nome').value.trim();
+      const email = document.getElementById('cad-email').value.trim().toLowerCase();
+      const telefone = document.getElementById('cad-telefone').value.trim();
+      const senha = document.getElementById('cad-senha').value;
+      const senha2 = document.getElementById('cad-senha2').value;
+
+      if (!nome || !email || !senha) {
+        mostrarErro('Preencha nome, e-mail e senha.');
+        return;
+      }
+      if (senha.length < 4) {
+        mostrarErro('A senha deve ter pelo menos 4 caracteres.');
+        return;
+      }
+      if (senha !== senha2) {
+        mostrarErro('As senhas não coincidem.');
+        return;
+      }
+      if (buscarUsuario(email)) {
+        mostrarErro('Já existe uma conta com este e-mail. Tente entrar.');
+        return;
+      }
+
+      const usuarios = getUsuarios();
+      usuarios.push({
+        nome,
+        email,
+        telefone: telefone || '',
+        // Em projeto real use hash. Aqui é demo com localStorage no navegador.
+        senha,
+        criadoEm: new Date().toISOString()
+      });
+      salvarUsuarios(usuarios);
+
+      // Já entra automaticamente após cadastrar
+      setSessao(email);
+      formCadastro.reset();
+      atualizarTela();
+    });
+
+    // --- Login ---
+    formLogin.addEventListener('submit', (e) => {
+      e.preventDefault();
+      limparMsgs();
+
+      const email = document.getElementById('login-email').value.trim().toLowerCase();
+      const senha = document.getElementById('login-senha').value;
+      const usuario = buscarUsuario(email);
+
+      if (!usuario) {
+        mostrarErro('E-mail não encontrado. Cadastre-se primeiro.');
+        return;
+      }
+      if (usuario.senha !== senha) {
+        mostrarErro('Senha incorreta.');
+        return;
+      }
+
+      setSessao(email);
+      formLogin.reset();
+      atualizarTela();
+    });
+
+    // --- Logout ---
+    document.getElementById('btn-logout').addEventListener('click', () => {
+      setSessao(null);
+      limparMsgs();
+      trocarAba('login');
+      atualizarTela();
+    });
+
+    // Menu mobile
+    const btnMenu = document.getElementById('btn-menu');
+    const menuNav = document.getElementById('menu-navegacao');
+    if (btnMenu && menuNav) {
+      btnMenu.addEventListener('click', () => menuNav.classList.toggle('ativo'));
+    }
+
+    // Inicia a tela conforme a sessão
+    atualizarTela();
+  </script>
 </body>
 </html>
