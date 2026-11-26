@@ -368,3 +368,102 @@ main{
   opacity: 1;
   pointer-events: auto;
 }
+/* =====================================
+   SELETOR DE CORES DO PRODUTO
+===================================== */
+.seletor-cores {
+  margin: 12px 0 16px;
+  text-align: center;
+}
+
+.seletor-cores .label-cores {
+  font-size: 0.9rem;
+  color: #334155;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.cores-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cor-opcao {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.cor-opcao:hover {
+  transform: scale(1.12);
+}
+
+.cor-opcao.ativa {
+  outline: 3px solid #0F172A;
+  outline-offset: 2px;
+  transform: scale(1.08);
+}
+
+/* =====================================
+   SELETOR DE TAMANHOS
+===================================== */
+.seletor-tamanhos {
+  margin: 12px 0 16px;
+  text-align: center;
+}
+
+.seletor-tamanhos .label-tamanhos {
+  font-size: 0.9rem;
+  color: #334155;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.tamanhos-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.tamanho-opcao {
+  min-width: 42px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: 2px solid #cbd5e1;
+  background: #fff;
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.tamanho-opcao:hover {
+  transform: scale(1.06);
+  border-color: #64748b;
+}
+
+.tamanho-opcao.ativa {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+.dica-preco-tamanho {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: #64748b;
+}

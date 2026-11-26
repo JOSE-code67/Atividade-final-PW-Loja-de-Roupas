@@ -82,7 +82,14 @@
           const itensHtml = carrinho.map(item => {
             const subtotal = item.preco * item.quantidade;
             total += subtotal;
-            return `<p>${item.quantidade}x ${item.nome} — <strong>${formatarReal(subtotal)}</strong></p>`;
+            const extras = [];
+            if (item.cor && item.cor !== 'Padrão') extras.push(`Cor: ${item.cor}`);
+            if (item.tamanho) extras.push(`Tam: ${item.tamanho}`);
+            const extrasLabel = extras.length ? ` — ${extras.join(' · ')}` : '';
+            const imgTag = item.imagem
+              ? `<img src="${item.imagem}" alt="${item.nome}" style="width:48px;height:48px;object-fit:cover;border-radius:4px;vertical-align:middle;margin-right:8px;">`
+              : '';
+            return `<p style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">${imgTag}${item.quantidade}x ${item.nome}${extrasLabel} — <strong>${formatarReal(subtotal)}</strong></p>`;
           }).join('');
 
           divProduto.innerHTML = `

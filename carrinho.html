@@ -60,6 +60,15 @@
       border-radius: 4px;
       cursor: pointer;
     }
+    .item-detalhes {
+      margin: 4px 0;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+    .item-detalhes .item-cor,
+    .item-detalhes .item-tamanho {
+      margin-right: 4px;
+    }
     .carrinho-resumo {
       background: #F8FAFC;
       border: 1px solid #E2E8F0;
@@ -177,11 +186,20 @@
         const subtotal = item.preco * item.quantidade;
         total += subtotal;
 
+        const corTexto = item.cor && item.cor !== 'Padrão'
+          ? `<span class="item-cor">Cor: <strong>${item.cor}</strong></span>`
+          : '';
+        const tamTexto = item.tamanho
+          ? `<span class="item-tamanho">Tam: <strong>${item.tamanho}</strong></span>`
+          : '';
+        const detalhes = [corTexto, tamTexto].filter(Boolean).join(' · ');
+
         return `
           <div class="item-carrinho">
-            <img src="${item.imagem}" alt="${item.nome}">
+            <img src="${item.imagem}" alt="${item.nome}${item.cor ? ' - ' + item.cor : ''}${item.tamanho ? ' - Tam. ' + item.tamanho : ''}">
             <div class="item-info">
               <h3>${item.nome}</h3>
+              ${detalhes ? `<p class="item-detalhes">${detalhes}</p>` : ''}
               <p class="preco">${formatarReal(item.preco)} cada</p>
             </div>
             <div class="item-controles">
