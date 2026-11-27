@@ -1,7 +1,4 @@
-/* =====================================
-   VARIANTES DE CORES POR PRODUTO
-   (imagens disponíveis na pasta img/)
-===================================== */
+
 const variantesCores = {
   produto1: [
     { cor: 'Branca', img: 'img/produto1-camisa-casual-branca.png', hex: '#f5f5f5' },
@@ -48,20 +45,14 @@ const variantesCores = {
   ]
 };
 
-/* =====================================
-   TAMANHOS
-   - Roupas: P, M, G, GG
-   - Calçados: 38, 40, 42, 44
-   Aumento de 5% por nível em relação ao preço base:
-   índice 0 → 0%, 1 → +5%, 2 → +10%, 3 → +15%
-===================================== */
+
 const TAMANHOS_ROUPA = ['P', 'M', 'G', 'GG'];
 const TAMANHOS_CALCADO = ['38', '40', '42', '44'];
-const AUMENTO_POR_NIVEL = 0.05; // 5%
+const AUMENTO_POR_NIVEL = 0.05;
 
 const produtosCalcado = new Set([
   'produto5', 'produto7', 'produto10', 'produto12', 'produto13',
-  'produto14', 'produto15', 'produto16'
+  'produto14', 'produto15', 'produto16', 'produto17'
 ]);
 
 function obterTamanhos(produtoId) {
@@ -72,7 +63,6 @@ function calcularPrecoPorTamanho(precoBase, tamanho, produtoId) {
   const lista = obterTamanhos(produtoId);
   const indice = Math.max(0, lista.indexOf(String(tamanho)));
   const fator = 1 + (indice * AUMENTO_POR_NIVEL);
-  // arredonda para 2 casas (centavos)
   return Math.round(precoBase * fator * 100) / 100;
 }
 
@@ -98,10 +88,7 @@ class card_objeto {
     this.categorias = (elementoHTML.getAttribute('data-categoria') || '').toLowerCase().split(' ');
   }
 
-  /**
-   * Adiciona ao carrinho com cor, tamanho e preço ajustado.
-   * Mesma id + mesma cor + mesmo tamanho = aumenta quantidade.
-   */
+ 
   registrarCompra(avisarUsuario = false, opcoes = {}) {
     const cor = opcoes.cor || 'Padrão';
     const imagem = opcoes.imagem || this.imagem;
@@ -155,9 +142,7 @@ class card_objeto {
   }
 }
 
-/* =====================================
-   SELETORES NO POPUP (cor + tamanho)
-===================================== */
+
 
 function atualizarPrecoPopup(overlay, produtoId) {
   const popup = overlay.querySelector('.popup');
@@ -165,7 +150,7 @@ function atualizarPrecoPopup(overlay, produtoId) {
   const elPreco = popup.querySelector('.preco');
   if (!elPreco) return;
 
-  // Guarda o preço base na primeira vez
+  
   if (!overlay.dataset.precoBase) {
     const texto = elPreco.textContent || 'R$ 0,00';
     const base = Number(texto.replace('R$', '').replace(/\./g, '').replace(',', '.').trim()) || 0;
@@ -183,13 +168,12 @@ function montarSeletorCores(overlay, produtoId) {
   const popup = overlay.querySelector('.popup');
   if (!popup) return;
 
-  // Remove seletores antigos
+
   popup.querySelectorAll('.seletor-cores, .seletor-tamanhos').forEach(el => el.remove());
 
   const imgPrincipal = popup.querySelector('img');
   const btnComprar = popup.querySelector('.btn-comprar');
 
-  // ---- Cores (só se houver variantes) ----
   if (variantes && variantes.length > 0) {
     const seletor = document.createElement('div');
     seletor.className = 'seletor-cores';
@@ -238,7 +222,7 @@ function montarSeletorCores(overlay, produtoId) {
     overlay.dataset.imgSelecionada = imgPrincipal ? imgPrincipal.getAttribute('src') : '';
   }
 
-  // ---- Tamanhos (sempre) ----
+
   const tamanhos = obterTamanhos(produtoId);
   const seletorTam = document.createElement('div');
   seletorTam.className = 'seletor-tamanhos';
@@ -247,7 +231,7 @@ function montarSeletorCores(overlay, produtoId) {
     <div class="tamanhos-opcoes"></div>
     <p class="dica-preco-tamanho">+5% no preço a cada tamanho maior (P→M→G→GG)</p>
   `;
-  // Ajusta texto da dica para calçados
+
   if (produtosCalcado.has(produtoId)) {
     seletorTam.querySelector('.dica-preco-tamanho').textContent =
       '+5% no preço a cada numeração maior (38→40→42→44)';
@@ -436,7 +420,6 @@ document.addEventListener('click', (evento) => {
     return;
   }
 
-  // Clique direto no card (sem popup): tamanho base + 1ª cor se houver
   evento.preventDefault();
   const card = botao.closest('.card-produto');
   const produto = card ? mapaProdutos.get(card.id) : null;
@@ -497,9 +480,6 @@ document.querySelectorAll('#menu-navegacao a[data-categoria]').forEach(link => {
 atualizarVitrineDestaques();
 
 
-// =====================================
-// FUNCIONAMENTO DO CARROSSEL
-// =====================================
 
 const carrossel = document.querySelector('.carrossel');
 const slidesContainer = document.getElementById('slides-container');
