@@ -169,12 +169,41 @@
     const listaContainer = document.getElementById('lista-carrinho');
     const valorTotalEl = document.getElementById('valor-total');
 
+    function chaveCarrinho() {
+      const email = localStorage.getItem('clothesx_sessao');
+      if (!email) return null;
+      return 'clothesx_carrinho_' + email.trim().toLowerCase();
+    }
+
+    function obterCarrinho() {
+      const chave = chaveCarrinho();
+      if (!chave) return [];
+      try {
+        return JSON.parse(localStorage.getItem(chave)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function salvarCarrinho(carrinho) {
+      const chave = chaveCarrinho();
+      if (!chave) return;
+      localStorage.setItem(chave, JSON.stringify(carrinho));
+    }
+
     function formatarReal(valor) {
       return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
 
     function renderizarCarrinho() {
-      const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+      const sessao = localStorage.getItem('clothesx_sessao');
+      if (!sessao) {
+        listaContainer.innerHTML = '<p>Faça login para ver o carrinho da sua conta.</p>';
+        valorTotalEl.textContent = 'R$ 0,00';
+        return;
+      }
+
+      const carrinho = obterCarrinho();
 
       if (carrinho.length === 0) {
         listaContainer.innerHTML = '<p>Seu carrinho está vazio no momento.</p>';
@@ -219,7 +248,7 @@
     }
 
     function alterarQuantidade(index, delta) {
-      const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+      const carrinho = obterCarrinho();
       if (!carrinho[index]) return;
 
       carrinho[index].quantidade += delta;
@@ -227,19 +256,25 @@
         carrinho.splice(index, 1);
       }
 
-      localStorage.setItem('clothesx_carrinho', JSON.stringify(carrinho));
+      salvarCarrinho(carrinho);
       renderizarCarrinho();
     }
 
     function removerItem(index) {
-      const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+      const carrinho = obterCarrinho();
       carrinho.splice(index, 1);
-      localStorage.setItem('clothesx_carrinho', JSON.stringify(carrinho));
+      salvarCarrinho(carrinho);
       renderizarCarrinho();
     }
 
     document.getElementById('btn-finalizar').addEventListener('click', () => {
-      const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+      const sessao = localStorage.getItem('clothesx_sessao');
+      if (!sessao) {
+        alert('Você precisa estar logado para finalizar a compra.\n\nVocê será redirecionado para a página de conta.');
+        window.location.href = 'conta.html';
+        return;
+      }
+      const carrinho = obterCarrinho();
       if (carrinho.length === 0) {
         alert('Adicione pelo menos um produto antes de finalizar.');
         return;

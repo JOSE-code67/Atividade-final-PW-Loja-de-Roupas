@@ -1,4 +1,49 @@
 
+const btnMenu = document.getElementById('btn-menu');
+const menuNav = document.getElementById('menu-navegacao');
+if (btnMenu && menuNav) {
+  btnMenu.addEventListener('click', () => menuNav.classList.toggle('ativo'));
+}
+
+
+// ===== AUTENTICAÇÃO (obrigatória para carrinho / compra) =====
+const KEY_SESSION = 'clothesx_sessao';
+
+function estaLogado() {
+  return !!localStorage.getItem(KEY_SESSION);
+}
+
+function exigirLogin(mensagem) {
+  if (estaLogado()) return true;
+  const msg = mensagem || 'Você precisa estar logado para adicionar produtos ao carrinho e comprar.';
+  alert(msg + '\n\nVocê será redirecionado para a página de conta.');
+  window.location.href = 'conta.html';
+  return false;
+}
+
+// ===== CARRINHO VINCULADO À CONTA =====
+function chaveCarrinho() {
+  const email = localStorage.getItem(KEY_SESSION);
+  if (!email) return null;
+  return 'clothesx_carrinho_' + email.trim().toLowerCase();
+}
+
+function obterCarrinho() {
+  const chave = chaveCarrinho();
+  if (!chave) return [];
+  try {
+    return JSON.parse(localStorage.getItem(chave)) || [];
+  } catch {
+    return [];
+  }
+}
+
+function salvarCarrinho(carrinho) {
+  const chave = chaveCarrinho();
+  if (!chave) return;
+  localStorage.setItem(chave, JSON.stringify(carrinho));
+}
+
 const variantesCores = {
   produto1: [
     { cor: 'Branca', img: 'img/produto1-camisa-casual-branca.png', hex: '#f5f5f5' },
@@ -8,8 +53,8 @@ const variantesCores = {
     { cor: 'Verde', img: 'img/produto1-camisa-casual-verde.png', hex: '#16a34a' }
   ],
   produto2: [
-    { cor: 'Azul', img: 'img/produto2-calça-jeans-azul.png', hex: '#1e3a8a' },
-    { cor: 'Azul Claro', img: 'img/produto2-calça-jeans-azul_claro.png', hex: '#60a5fa' }
+    { cor: 'Azul', img: 'img/produto2-calca-jeans-azul.png', hex: '#1e3a8a' },
+    { cor: 'Azul Claro', img: 'img/produto2-calca-jeans-azul_claro.png', hex: '#60a5fa' }
   ],
   produto3: [
     { cor: 'Jeans', img: 'img/produto3-jaqueta-jeans.png', hex: '#3b82f6' },
@@ -36,7 +81,7 @@ const variantesCores = {
     { cor: 'Preto', img: 'img/produto12-tenis-casual-preto.png', hex: '#1a1a1a' },
     { cor: 'Azul Marinho', img: 'img/produto12-tenis-casual-azul-marinho.png', hex: '#1e3a8a' },
     { cor: 'Bege', img: 'img/produto12-tenis-casual-bege.png', hex: '#d4a574' },
-    { cor: 'Cinza', img: 'img/produto12-tenis-casual-cinzapng.png', hex: '#9ca3af' }
+    { cor: 'Cinza', img: 'img/produto12-tenis-casual-cinza.png', hex: '#9ca3af' }
   ],
   produto10: [
     { cor: 'Branca', img: 'img/produto4-sandalia-branca.png', hex: '#f5f5f5' },
@@ -90,6 +135,10 @@ class card_objeto {
 
  
   registrarCompra(avisarUsuario = false, opcoes = {}) {
+    if (!exigirLogin('Faça login ou cadastre-se para adicionar produtos ao carrinho.')) {
+      return false;
+    }
+
     const cor = opcoes.cor || 'Padrão';
     const imagem = opcoes.imagem || this.imagem;
     const tamanhos = obterTamanhos(this.id);
@@ -105,7 +154,7 @@ class card_objeto {
 
     atualizarVitrineDestaques();
 
-    const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+    const carrinho = obterCarrinho();
     const itemExistente = carrinho.find(
       item =>
         item.id === this.id &&
@@ -130,7 +179,7 @@ class card_objeto {
       });
     }
 
-    localStorage.setItem('clothesx_carrinho', JSON.stringify(carrinho));
+    salvarCarrinho(carrinho);
 
     if (avisarUsuario) {
       const partes = [];
@@ -366,6 +415,9 @@ document.addEventListener('click', (evento) => {
         tamanho: opcoes.tamanho
       });
     } else {
+      if (!exigirLogin('Faça login ou cadastre-se para adicionar produtos ao carrinho.')) {
+        return;
+      }
       const nome = overlay.querySelector('h3')?.textContent.trim() || 'Produto';
       const precoTexto = overlay.querySelector('.preco')?.textContent || 'R$ 0,00';
       const precoBase = Number(overlay.dataset.precoBase) ||
@@ -376,7 +428,7 @@ document.addEventListener('click', (evento) => {
       const imgFinal = opcoes.imagem || overlay.querySelector('img')?.getAttribute('src') || '';
       const cor = opcoes.cor || 'Padrão';
 
-      const carrinho = JSON.parse(localStorage.getItem('clothesx_carrinho')) || [];
+      const carrinho = obterCarrinho();
       const existente = carrinho.find(
         item => item.nome === nome &&
           (item.cor || 'Padrão') === cor &&
@@ -398,7 +450,7 @@ document.addEventListener('click', (evento) => {
           quantidade: 1
         });
       }
-      localStorage.setItem('clothesx_carrinho', JSON.stringify(carrinho));
+      salvarCarrinho(carrinho);
       const partes = [];
       if (cor && cor !== 'Padrão') partes.push(cor);
       if (tamanho) partes.push(`Tam. ${tamanho}`);
@@ -424,6 +476,7 @@ document.addEventListener('click', (evento) => {
   const card = botao.closest('.card-produto');
   const produto = card ? mapaProdutos.get(card.id) : null;
   if (produto) {
+    // registrarCompra já exige login
     const variantes = variantesCores[produto.id];
     const tamanhoBase = obterTamanhos(produto.id)[0];
     if (variantes && variantes.length) {
