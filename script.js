@@ -52,7 +52,7 @@ const AUMENTO_POR_NIVEL = 0.05;
 
 const produtosCalcado = new Set([
   'produto5', 'produto7', 'produto10', 'produto12', 'produto13',
-  'produto14', 'produto15', 'produto16', 'produto17'
+  'produto14', 'produto15', 'produto16', 'produto17', 'produto18', 'produto19'
 ]);
 
 function obterTamanhos(produtoId) {
